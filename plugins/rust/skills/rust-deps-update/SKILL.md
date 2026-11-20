@@ -64,7 +64,13 @@ For cross-language LTO, clang/lld must match rustc's LLVM major (`rustc +<v> -vV
 
 ## 6. Features and duplicates
 
-Audit every direct dep's default features against what we use; `cargo tree -e normal,features -i <dep>` shows who enables what. This is often the biggest win.
+Audit every direct dep's default features against what we use; `cargo tree -e normal,features -i <dep>` shows who enables what. Turn defaults off only for a measurable win:
+- a `-sys` or build-script crate
+- a second TLS or crypto stack
+- serde/syn heavy crates if that codegen is unused
+- binary size
+
+Keep features users see, such as clap's `color` and `suggestions`; a few small pure-Rust crates are not worth a hand-kept feature list.
 
 For a duplicate, `cargo tree -i x@<ver> -e normal --target all` shows who pulls it. Then do one of these:
 - align our dep (a downgrade is fine)
