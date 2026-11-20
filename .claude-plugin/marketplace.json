@@ -1,0 +1,11 @@
+{
+  "name": "kinkard",
+  "owner": { "name": "kinkard" },
+  "plugins": [
+    {
+      "name": "rust",
+      "source": "./plugins/rust",
+      "description": "Rust dependency updates"
+    }
+  ]
+}
